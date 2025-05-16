@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trézór Bridge®™ - Secure Crypto Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --green: #217a39;
+            --blue: #1f80e0;
+            --nav-bg: #fff;
+            --hero-bg: #0a0e17;
+            --gray: #a0aec0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #0a0e17;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        /* Top Navigation */
+        .top-bar {
+            background: #fff;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            position: fixed;
+            width: 96%;
+            left: 2%;
+            top: 1.2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 24px rgba(31,128,224,0.07);
+            animation: slideDown 0.6s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #121921;
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand i {
+            color: var(--green);
+            font-size: 1.5rem;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 2.2rem;
+        }
+        .nav-button {
+            color: #222;
+            text-decoration: none;
+            padding: 0.5rem 0.7rem;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1.07rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .nav-button:hover {
+            background: #e6f0fa;
+            color: var(--blue);
+            transform: translateY(-2px);
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+        }
+        .currency {
+            color: #222;
+            background: #f3f3f3;
+            border-radius: 18px;
+            padding: 0.4rem 1.1rem;
+            font-weight: 500;
+            font-size: 1rem;
+            margin-right: 0.7rem;
+        }
+        .cart {
+            color: #121921;
+            font-size: 1.2rem;
+            margin-right: 5px;
+        }
+        .cta-button.nav-get-btn {
+            background: var(--green);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 24px;
+            padding: 0.7rem 1.5rem;
+            margin-left: 1rem;
+            transition: background 0.2s, transform 0.2s;
+            border: none;
+        }
+        .cta-button.nav-get-btn:hover {
+            background: var(--blue);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 88vh;
+            background: linear-gradient(rgba(10, 14, 23, 0.89), rgba(10, 14, 23, 0.89)),
+                url('https://images.unsplash.com/photo-1621418845794-8c6a9769b48a?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2rem 0 2rem 0;
+            margin-top: 90px;
+            position: relative;
+            animation: fadeIn 1.2s;
+        }
+        .hero-content {
+            max-width: 600px;
+            margin-left: 7vw;
+            z-index: 1;
+            color: #fff;
+            animation: slideInLeft 1.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.08;
+            margin-bottom: 0.4rem;
+            letter-spacing: -1px;
+            text-align: left;
+        }
+        .underline-animate {
+            display: inline-block;
+            position: relative;
+            color: #fff;
+        }
+        .underline-animate::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0; bottom: -7px;
+            width: 100%;
+            height: 7px;
+            background: linear-gradient(90deg, #1f80e0 60%, #217a39 100%);
+            border-radius: 4px;
+            animation: underlineGrow 1.1s cubic-bezier(.77,0,.18,1) 0.5s forwards;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+        @keyframes underlineGrow {
+            to { transform: scaleX(1);}
+        }
+        .hero-desc {
+            font-size: 1.22rem;
+            color: #e2e2e2;
+            margin-bottom: 0.7rem;
+            line-height: 1.5;
+            text-align: left;
+            animation: fadeInUp 1.2s;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 1.1rem;
+            align-items: center;
+            margin-bottom: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .cta-button {
+            background: var(--green);
+            color: #fff;
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(31, 128, 224, 0.09);
+            animation: fadeInUp 1.3s;
+        }
+        .cta-button.green { background: var(--green);}
+        .cta-button.green:hover {
+            background: var(--blue);
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .cta-button.white {
+            background: #fff;
+            color: var(--green);
+            border: 2px solid var(--green);
+        }
+        .cta-button.white:hover {
+            background: #e6f0fa;
+            color: var(--blue);
+            transform: scale(1.05);
+        }
+        .hero-more-link {
+            color: #1f80e0;
+            background: transparent;
+            font-weight: 500;
+            padding: 0.9rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            border: none;
+            font-size: 1rem;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            animation: fadeInUp 1.4s;
+        }
+        .hero-more-link:hover {
+            color: #217a39;
+        }
+        .hero-platforms {
+            display: flex;
+            gap: 1.5rem;
+            color: #e2e2e2;
+            font-size: 1.08rem;
+            margin-top: 0.3rem;
+            align-items: center;
+            animation: fadeInUp 1.5s;
+        }
+        .hero-platforms i {
+            color: #1f80e0;
+            margin-right: 5px;
+        }
+        .hero-stats {
+            margin-top: 1.1rem;
+            color: #b6e0ff;
+            font-size: 1rem;
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+            animation: fadeInUp 1.6s;
+        }
+
+        /* Content Sections */
+        .content-section {
+            max-width: 1200px;
+            margin: 5rem auto 2rem auto;
+            padding: 0 2rem;
+        }
+        .important-box {
+            background: #121921;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            border: 2px solid #1f80e0;
+            box-shadow: 0 10px 30px rgba(31, 128, 224, 0.1);
+            animation: pulse 2s infinite, fadeUp 1s ease forwards 1s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .important-box h2 {
+            color: #1f80e0;
+            margin-bottom: 1.2rem;
+        }
+        .important-box ul {
+            list-style: disc;
+            margin-left: 1.2rem;
+            color: #a0aec0;
+            font-size: 1.1rem;
+        }
+        .content-box {
+            background: #0d1217;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 1px solid #2d3748;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards;
+        }
+        .content-box:nth-child(2) { animation-delay: 1.2s; }
+        .content-box:nth-child(3) { animation-delay: 1.4s; }
+        .content-box:nth-child(4) { animation-delay: 1.6s; }
+        .content-box h2 {
+            color: #1f80e0;
+            margin-bottom: 1rem;
+        }
+        .content-box p {
+            color: #a0aec0;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background: #121921;
+            padding: 4rem 2rem 2rem 2rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 2s;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .footer-section {
+            flex: 1;
+            min-width: 220px;
+        }
+        .footer-section h3 {
+            color: #1f80e0;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #1f80e0;
+            padding-left: 5px;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #2d3748;
+        }
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: #2d3748;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #fff;
+            font-size: 1.3rem;
+        }
+        .social-icon:hover {
+            background: #1f80e0;
+            transform: translateY(-3px);
+        }
+        .policy-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .policy-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .policy-links a:hover {
+            color: #1f80e0;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            0% { opacity:0;}
+            100% { opacity:1;}
+        }
+        @keyframes fadeInUp {
+            0% { opacity:0; transform:translateY(40px);}
+            100% { opacity:1; transform:translateY(0);}
+        }
+        @keyframes slideInLeft {
+            0% { opacity:0; transform:translateX(-60px);}
+            100% { opacity:1; transform:translateX(0);}
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .footer-content { flex-direction: column; }
+        }
+        @media (max-width: 900px) {
+            .hero-content { margin-left: 4vw; }
+            .hero-title { font-size: 2.1rem;}
+            .top-bar { flex-direction: column; gap: 8px;}
+        }
+        @media (max-width: 600px) {
+            .hero { padding: 40px 0; min-height: 420px;}
+            .hero-content { margin-left: 0; padding: 30px 0;}
+            .hero-title { font-size: 1.4rem;}
+            .top-bar { padding: 0.7rem 0.7rem; width: 98%; left: 1%;}
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <a href="#" class="brand"><i class="fa-solid fa-lock"></i> Trézór Bridge®™</a>
+        <nav class="nav-buttons">
+            <a href="#" class="nav-button">Products</a>
+            <a href="#" class="nav-button">App</a>
+            <a href="#" class="nav-button">Coins</a>
+            <a href="#" class="nav-button">Learn & Support</a>
+        </nav>
+        <div class="nav-right">
+            <span class="currency"><i class="fa-solid fa-globe"></i> USD</span>
+            <span class="cart"><i class="fa-solid fa-cart-shopping"></i></span>
+            <a href="#" class="cta-button nav-get-btn">Get your Trézór Bridge®™</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                The app made<br>for your <span class="underline-animate">Trézór Bridge®™</span>
+            </h1>
+            <p class="hero-desc">
+                The Trézór Bridge®™ Suite® app makes it easy and secure to manage, buy, sell, and swap your crypto-all in one place.
+            </p>
+            <div class="hero-actions">
+                <a href="#" class="cta-button green"><i class="fa-brands fa-windows"></i> Download for desktop</a>
+                <a href="#" class="cta-button white">Continue in browser</a>
+                <a href="#" class="hero-more-link">More <i class="fa-solid fa-chevron-down"></i></a>
+            </div>
+            <div class="hero-platforms">
+                <span><i class="fa-brands fa-apple"></i> macOS</span>
+                <span><i class="fa-brands fa-windows"></i> Windows</span>
+                <span><i class="fa-solid fa-eye"></i> View-only</span>
+                <span><i class="fa-brands fa-apple"></i> iOS</span>
+            </div>
+            <div class="hero-stats">
+                <span>2M+ Customers</span>
+                <span>10+ Years in Bitcoin</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Sections -->
+    <section class="content-section">
+        <div class="important-box">
+            <h2>Why Choose Trézór Bridge®™?</h2>
+            <ul>
+                <li>Military-grade security</li>
+                <li>User-friendly interface</li>
+                <li>Support for 1000+ coins</li>
+                <li>Regular firmware updates</li>
+            </ul>
+        </div>
+        <div class="content-box">
+            <h2>Advanced Security Features</h2>
+            <p>Trézór Bridge®™ walléts set the standard for cryptocurrency security. Developed by SatoshiLabs, Trézór Bridge®™ created the world's first Bitcoin wallét, offering unparalleled protection through offline private key storage. Our devices feature certified secure element chips (CC EAL6+) resistant to physical attacks, with PIN protection and two-factor authentication. Every transaction requires manual verification on the device's display, ensuring complete protection against malware and phishing attacks.</p>
+        </div>
+        <div class="content-box">
+            <h2>Comprehensive Crypto Management</h2>
+            <p>Trézór Bridge®™ Suite® supports over 1,600 cryptocurrencies with advanced features including Tor integration for anonymous transactions and coin control for precise UTXO management. The open-source architecture allows community auditing, while regular updates protect against emerging threats. Enterprise solutions offer multi-signature configurations and HD wallet structures, with Shamir Backup (SLIP-39) enabling secure key splitting without single-point failure risks.</p>
+        </div>
+        <div class="content-box">
+            <h2>Innovative Functionality</h2>
+            <p>Experience cutting-edge features like Lightning Network integration for instant transactions, CoinJoin for enhanced privacy, and hardware-based FIDO2 authentication. The Trézór Bridge®™ Model T's touchscreen interface and SD card protection complement quantum-resistant algorithms in newer models. Earn rewards through integrated staking while maintaining full asset custody, and explore DeFi integrations through our secure ecosystem.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Trézór Bridge®™</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Company</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Products</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Trézór Bridge®™ Model T</a></li>
+                    <li><a href="#">Trézór Bridge®™ Safe 3</a></li>
+                    <li><a href="#">Trézór Bridge®™ Suite®</a></li>
+                    <li><a href="#">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">User Guide</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">System Status</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-reddit"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="policy-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Legal Notice</a>
+            </div>
+            <p style="margin-top: 1.5rem; color: #6b7280;">
+                &copy; 2025 Trézór Bridge®™ Company s.r.o. All rights reserved.<br>
+                "Trézór Bridge®™" and the Trézór Bridge®™ logo are registered trademarks.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
